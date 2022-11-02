@@ -307,6 +307,12 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 # Platform
 TARGET_BOARD_PLATFORM := kona
 
+# IMS-Features Flags
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.dbg.volte_avail_ovr=1 \
+    persist.dbg.vt_avail_ovr=1 \
+    persist.dbg.wfc_avail_ovr=1
+
 # QCRIL
 PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.radio.cdma_cap=true \
