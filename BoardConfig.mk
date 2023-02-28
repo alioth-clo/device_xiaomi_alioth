@@ -40,6 +40,8 @@ TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a76
 
+BOARD_ANT_WIRELESS_DEVICE := "qualcomm-hidl"
+
 # ART
 BOARD_USES_SYSTEM_OTHER_ODEX := true
 
@@ -62,7 +64,11 @@ BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 TARGET_BOARD_INFO_FILE := $(DEVICE_PATH)/board-info.txt
 
 # Bootloader
+BOARD_VENDOR := xiaomi
+BOARD_USES_QCOM_HARDWARE := true
 TARGET_BOOTLOADER_BOARD_NAME := kona
+TARGET_BOARD_PLATFORM := kona
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno650
 
 # DTB
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
@@ -105,10 +111,14 @@ BUILD_BROKEN_ENFORCE_SYSPROP_OWNER := true
 # Init
 TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_alioth
 
+# DRM
+TARGET_ENABLE_MEDIADRM_64 := true
+
 # Kernel
 BOARD_KERNEL_CMDLINE := \
     androidboot.console=ttyMSM0 \
     androidboot.hardware=qcom \
+    androidboot.fstab_suffix=qcom \
     androidboot.init_fatal_reboot_target=recovery \
     androidboot.memcg=1 \
     androidboot.usbcontroller=a600000.dwc3 \
@@ -123,13 +133,17 @@ BOARD_KERNEL_CMDLINE := \
     swiotlb=2048
 
 BOARD_KERNEL_BASE := 0x00000000
+BOARD_KERNEL_IMAGE_NAME := Image
+TARGET_KERNEL_ARCH := arm64
 BOARD_KERNEL_PAGESIZE := 4096
-BOARD_RAMDISK_OFFSET := 0x01000000
-BOARD_RAMDISK_USE_LZ4 := true
-
-KERNEL_DEFCONFIG := alioth_defconfig
+TARGET_KERNEL_CONFIG := alioth_defconfig
 
 KERNEL_LLVM_SUPPORT := true
+TARGET_KERNEL_CLANG_COMPILE := true
+TARGET_KERNEL_SOURCE := kernel/xiaomi/sm8250
+
+TARGET_KERNEL_ADDITIONAL_FLAGS := LD=ld.lld AR=llvm-ar NM=llvm-nm LLVM_NM=llvm-nm LLVM=1 LLVM_IAS=1
+TARGET_KERNEL_ADDITIONAL_FLAGS += HOSTCFLAGS="-fuse-ld=lld -Wno-unused-command-line-argument"
 
 # Metadata
 BOARD_USES_METADATA_PARTITION := true
@@ -168,6 +182,12 @@ TARGET_USERIMAGES_USE_F2FS := true
 
 # USB
 TARGET_QTI_USB_SUPPORTS_AUDIO_ACCESSORY := true
+
+# Reloaded Properties
+TARGET_SYSTEM_EXT_PROP += $(DEVICE_PATH)/configs/system_ext.prop
+
+# Inherit from ReloadedOS configuration
+include vendor/reloaded/config/BoardConfigReloaded.mk
 
 # SEPolicy
 -include device/xiaomi/alioth/sepolicy/alioth-sepolicy.mk
