@@ -110,6 +110,7 @@ BUILD_BROKEN_ENFORCE_SYSPROP_OWNER := true
 
 # Init
 TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_alioth
+TARGET_RECOVERY_DEVICE_MODULES := libinit_alioth
 
 # DRM
 TARGET_ENABLE_MEDIADRM_64 := true
@@ -122,6 +123,7 @@ BOARD_KERNEL_CMDLINE := \
     androidboot.init_fatal_reboot_target=recovery \
     androidboot.memcg=1 \
     androidboot.usbcontroller=a600000.dwc3 \
+    androidboot.selinux=permissive \
     cgroup.memory=nokmem,nosocket \
     console=ttyMSM0,115200n8 \
     earlycon=msm_geni_serial,0xa90000 \
@@ -179,6 +181,7 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/init/fstab.qcom
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_RECOVERY_UI_MARGIN_HEIGHT := 75
 TARGET_USERIMAGES_USE_F2FS := true
+TARGET_USERIMAGES_USE_EXT4 := true
 
 # USB
 TARGET_QTI_USB_SUPPORTS_AUDIO_ACCESSORY := true
@@ -190,4 +193,7 @@ TARGET_SYSTEM_EXT_PROP += $(DEVICE_PATH)/configs/system_ext.prop
 include vendor/reloaded/config/BoardConfigReloaded.mk
 
 # SEPolicy
+SELINUX_IGNORE_NEVERALLOWS := true
+SELINUX_IGNORE_NEVERALLOWS_ON_USER := true
+#include device/qcom/sepolicy/SEPolicy.mk
 -include device/xiaomi/alioth/sepolicy/alioth-sepolicy.mk

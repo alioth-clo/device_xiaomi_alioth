@@ -1,4 +1,4 @@
-# Copyright (C) 2021 Paranoid Android
+# Copyright (C) 2022 Paranoid Android
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,20 +12,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Private Sepolicy
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += \
+    device/xiaomi/alioth/sepolicy/private
+
+# Public Sepolicy
+SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += \
+    device/xiaomi/alioth/sepolicy/public
+
 # QCOM Sepolicy
-BOARD_SEPOLICY_DIRS += \
+BOARD_VENDOR_SEPOLICY_DIRS += \
     device/xiaomi/alioth/sepolicy/vendor/qcom
 
 # Xiaomi Sepolicy
-BOARD_SEPOLICY_DIRS += \
+BOARD_VENDOR_SEPOLICY_DIRS += \
     device/xiaomi/alioth/sepolicy/vendor/xiaomi/audio \
     device/xiaomi/alioth/sepolicy/vendor/xiaomi/bluetooth \
     device/xiaomi/alioth/sepolicy/vendor/xiaomi/battery \
     device/xiaomi/alioth/sepolicy/vendor/xiaomi/camera \
-    device/xiaomi/alioth/sepolicy/vendor/xiaomi/dolby \
     device/xiaomi/alioth/sepolicy/vendor/xiaomi/fingerprint \
     device/xiaomi/alioth/sepolicy/vendor/xiaomi/ir \
+    device/xiaomi/alioth/sepolicy/vendor/xiaomi/mlipay \
     device/xiaomi/alioth/sepolicy/vendor/xiaomi/modem \
+    device/xiaomi/alioth/sepolicy/vendor/xiaomi/parts \
     device/xiaomi/alioth/sepolicy/vendor/xiaomi/power_supply \
     device/xiaomi/alioth/sepolicy/vendor/xiaomi/sensors \
     device/xiaomi/alioth/sepolicy/vendor/xiaomi/thermald \
